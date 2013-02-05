@@ -21,39 +21,12 @@ var authorize = function(refreshToken, callback) {
     });
 };
 
-authorize('1/Xl2APrqweSqzwYTsSmh30SmGTORAOckibNnbjsF4iN8');
-
-
-fs.readFile('token.txt', 'utf8', function(err, data) {
-});
+authorize(process.env.YEOMAN_DASHBOARD_REFRESH_TOKEN);
 
 // app.get('/', function (req, res) {
 // 
-//     res.send('sup');
+//     res.send('Hello, Yeoman!');
 // });
 // 
 // app.listen(3000);
 // console.log('Listening on port 3000');
-
-
-//    var now = new Date().getTime() - (360 * 1000);
-//
-//    var jwt_payload = {
-//        iss: "372493621640-rjt489be1b9d1hb2un9k8gdeub0qu3nn@developer.gserviceaccount.com",
-//        scope: "https://www.googleapis.com/auth/analytics.readonly",
-//        aud: "https://accounts.google.com/o/oauth2/token",
-//        exp: now + (3600 * 1000),
-//        iat: now
-//    };
-//
-//    fs.readFile('privateKey.p12', function(err, secret) {
-//        var jwt = require('jwt-simple');
-//        var token = jwt.encode(jwt_payload, secret);
-//
-//        request.post({
-//            url: 'https://accounts.google.com/o/oauth2/token',
-//            form: { grant_type: 'urn:ietf:params:oauth:grant-type:jwt-bearer', assertion: token }
-//        }, function(err, response, body) {
-//            console.log(body);
-//        });
-//    });
