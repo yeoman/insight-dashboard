@@ -1,19 +1,20 @@
-var express = require('express'),
-    analytics = require('./util/analytics.js'),
-    app     = express();
+var express   = require('express');
+var analytics = require('./util/analytics.js'),
 
-app.get('/', function(req, res) {
-    analytics.query({
+var app = express();
 
-        dimensions   : 'ga:pagePath',
-        metrics      : 'ga:pageviews',
-        sort         : '-ga:pageviews',
-        'max-results': '200'
+app.get( '/', function( req, res ) {
+  analytics.query({
 
-    }, function(response) {
-        res.send(response);
-    });
+    dimensions   : 'ga:pagePath',
+    metrics      : 'ga:pageviews',
+    sort         : '-ga:pageviews',
+    'max-results': '200'
+
+  }, function( response ) {
+    res.send( response );
+  });
 });
 
-app.listen(3000);
+app.listen( 3000 );
 console.log('Listening on port 3000');
