@@ -1,4 +1,5 @@
 var request = require('request');
+var util = require('util');
 
 var analytics = module.exports;
 
@@ -8,8 +9,8 @@ var clientSecret = process.env.YEOMAN_DASHBOARD_SECRET;
 var refreshToken = process.env.YEOMAN_DASHBOARD_REFRESH_TOKEN;
 var authToken    = null;
 
-var baseQuery = 'ids=' + encodeURIComponent( 'ga:' + profileId ) + '&';
-var baseUrl   = 'https://www.googleapis.com/analytics/v3/data/ga?' + baseQuery;
+var baseQuery = util.format( 'ids=ga:%s&', profileId );
+var baseUrl   = util.format( 'https://www.googleapis.com/analytics/v3/data/ga?%s', baseQuery );
 var authUrl   = 'https://accounts.google.com/o/oauth2/token';
 
 /**
@@ -46,11 +47,10 @@ var authorize = function( callback ) {
 analytics.query = function( params, callback ) {
 
   params['start-date'] = '2005-01-01';
-  // TODO: Make end date default to current time
   params['end-date']   = formatDate(new Date());
 
   authorize(function() {
-    var header = { Authorization: 'OAuth ' + authToken };
+    var header = { Authorization: util.format( 'OAuth %s', authToken ) };
 
     request.get( baseUrl, { headers: header, qs: params },
       function( err, response, body ) {
@@ -61,8 +61,8 @@ analytics.query = function( params, callback ) {
 };
 
 var formatDate = function( date ) {
-  var pad = function( n ) { return n < 10 ? '0' + n : n };
-  return pad( date.getFullYear() ) + '-'
-        + pad( date.getMonth() + 1 ) + '-'
-        + pad( date.getDate() );
+  var pad = function( n ) { return n < 10 ? '0' + n : '' + n };
+  return util.format( '%s-%s-%s', pad( date.getFullYear() ),
+                                  pad( date.getMonth() + 1 ),
+                                  pad( date.getDate() ));
 };
