@@ -1,5 +1,5 @@
 var express   = require('express');
-var analytics = require('./util/analytics.js'),
+var analytics = require('./util/analytics.js');
 
 var app = express();
 

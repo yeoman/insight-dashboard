@@ -44,27 +44,25 @@ var authorize = function( callback ) {
 };
 
 analytics.query = function( params, callback ) {
-  var paramsArray = [];
-  var queryUrl    = '';
 
-  for ( var param in params ) {
-    if ( params.hasOwnProperty( param ) ) {
-      paramsArray.push( param + '=' + encodeURIComponent( params[param] ) );
-    }
-  }
-
+  params['start-date'] = '2005-01-01';
   // TODO: Make end date default to current time
-  paramsArray.push('start-date=2005-01-01');
-  paramsArray.push('end-date=2013-02-04');
-
-  queryUrl = baseUrl + paramsArray.join('&');
+  params['end-date']   = formatDate(new Date());
 
   authorize(function() {
-
     var header = { Authorization: 'OAuth ' + authToken };
-    request.get( queryUrl, { headers: header }, function( err, response, body ) {
-      // TODO: Handle error
-      callback( body );
-    });
+
+    request.get( baseUrl, { headers: header, qs: params },
+      function( err, response, body ) {
+        // TODO: Handle error
+        callback( body );
+      });
   })
+};
+
+var formatDate = function( date ) {
+  var pad = function( n ) { return n < 10 ? '0' + n : n };
+  return pad( date.getFullYear() ) + '-'
+        + pad( date.getMonth() + 1 ) + '-'
+        + pad( date.getDate() );
 };
