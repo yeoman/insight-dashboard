@@ -16,6 +16,7 @@ app.get( '/', function( req, res ) {
     dimensions   : 'ga:pagePath',
     metrics      : 'ga:pageviews',
     sort         : '-ga:pageviews',
+    filters      : 'ga:pagePath=@/install/',
     'max-results': '200'
 
   }, function( response ) {
