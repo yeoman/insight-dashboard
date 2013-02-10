@@ -1,37 +1,41 @@
 var request = require('request');
 var util = require('util');
 
-var analytics = module.exports;
+var Analytics = function( profileId, clientId, clientSecret, refreshToken ) {
+  this.profileId = profileId;
+  this.clientId = clientId;
+  this.clientSecret = clientSecret;
+  this.refreshToken = refreshToken;
 
-var profileId    = '59574650';
-var clientId     = '653659177977.apps.googleusercontent.com';
-var clientSecret = process.env.YEOMAN_DASHBOARD_SECRET;
-var refreshToken = process.env.YEOMAN_DASHBOARD_REFRESH_TOKEN;
-var authToken    = null;
+  this.authToken = null;
 
-var baseQuery = util.format( 'ids=ga:%s&', profileId );
-var baseUrl   = util.format( 'https://www.googleapis.com/analytics/v3/data/ga?%s', baseQuery );
-var authUrl   = 'https://accounts.google.com/o/oauth2/token';
+  this.baseUrl = util.format( this.defaults.baseUrl, this.profileId );
+  this.authUrl = this.defaults.authUrl;
+};
+
+Analytics.prototype.defaults = {
+  baseUrl: 'https://www.googleapis.com/analytics/v3/data/ga?ids=ga:%s&',
+  authUrl: 'https://accounts.google.com/o/oauth2/token'
+};
 
 /**
- * Authorize analytics
+ * Authorize method
  */
-var authorize = function( callback ) {
-
+Analytics.prototype.authorize = function( callback ) {
   var data = {
-    refresh_token: refreshToken,
-    client_id    : clientId,
-    client_secret: clientSecret,
+    refresh_token: this.refreshToken,
+    client_id    : this.clientId,
+    client_secret: this.clientSecret,
     grant_type   : 'refresh_token'
   };
 
   // TODO: cache authToken
-  request.post( authUrl, { form: data, }, function( err, response, body ) {
+  request.post( this.authUrl, { form: data, }, function( err, response, body ) {
     var result = JSON.parse( body );
 
     // TODO: Handle error
     if ( result.access_token ) {
-      authToken = result.access_token;
+      this.authToken = result.access_token;
 
     } else {
       console.log('Auth Error:');
@@ -40,29 +44,36 @@ var authorize = function( callback ) {
       return false;
     }
 
-    callback();
-  });
+    callback.apply(this);
+  }.bind(this));
 };
 
-analytics.query = function( params, callback ) {
-
+/**
+ * Query method
+ */
+Analytics.prototype.query = function( params, callback ) {
   params['start-date'] = '2005-01-01';
   params['end-date']   = formatDate(new Date());
 
-  authorize(function() {
-    var header = { Authorization: util.format( 'OAuth %s', authToken ) };
+  this.authorize(function() {
+    var header = { Authorization: util.format( 'OAuth %s', this.authToken ) };
 
-    request.get( baseUrl, { headers: header, qs: params },
+    request.get( this.baseUrl, { headers: header, qs: params },
       function( err, response, body ) {
         // TODO: Handle error
         callback( body );
-      });
+      }.bind(this));
   })
 };
 
+/**
+ * Private functions
+ */
 var formatDate = function( date ) {
   var pad = function( n ) { return n < 10 ? '0' + n : '' + n };
   return util.format( '%s-%s-%s', pad( date.getFullYear() ),
                                   pad( date.getMonth() + 1 ),
                                   pad( date.getDate() ));
 };
+
+module.exports = Analytics;
