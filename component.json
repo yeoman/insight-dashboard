@@ -1,0 +1,8 @@
+{
+  "author": "Yeoman",
+  "name": "insight-dashboard",
+  "version": "0.0.1",
+  "dependencies": {
+    "d3": "*"
+  }
+}
