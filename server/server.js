@@ -10,7 +10,9 @@ var refreshToken = process.env.YEOMAN_DASHBOARD_REFRESH_TOKEN;
 
 var analytics = new Analytics(profileId, clientId, clientSecret, refreshToken);
 
-app.get( '/', function( req, res ) {
+app.use(express.static(__dirname + '/../dist'));
+
+app.get( '/query', function( req, res ) {
   analytics.query({
 
     dimensions   : 'ga:pagePath',
