@@ -1,0 +1,18 @@
+@import "compass_twitter_bootstrap";
+@import "bar_chart";
+
+.insight {
+  @include clearfix;
+
+  .chart svg {
+    float: left;
+  }
+
+  .table-wrapper {
+    float: left;
+    width: 350px;
+    height: 400px;
+    margin-left: 50px;
+    overflow-y: scroll;
+  }
+}
