@@ -1,24 +1,22 @@
-<div class="hero-unit">
-  <div class="insight">
-    <bar-chart class="chart" data="data" height=300 width=400></bar-chart>
-
-    <div class="table-wrapper">
-      <table class="table table-hover">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Path</th>
-            <th>Pageviews</th>
-          </tr>
-        </thead>
-        <tbody>
-        <tr ng-repeat="row in data">
-          <td>{{ $index + 1 }}</td>
-          <td>{{ row[0].slice(9) }}</td>
-          <td>{{ row[1] }}</td>
+<h3>Bower Installs</h3>
+<div class="insight hero-unit">
+  <bar-chart class="chart" data="data" height=300 width=400></bar-chart>
+  <div class="table-wrapper">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Path</th>
+          <th>Pageviews</th>
         </tr>
-        </tbody>
-      </table>
-    </div>
+      </thead>
+      <tbody>
+      <tr ng-repeat="row in data">
+        <td>{{ $index + 1 }}</td>
+        <td>{{ row[0].slice(9) }}</td>
+        <td>{{ row[1] }}</td>
+      </tr>
+      </tbody>
+    </table>
   </div>
 </div>
