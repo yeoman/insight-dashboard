@@ -1,7 +1,11 @@
 {
-  "author": "Yeoman",
   "name": "insight-dashboard",
   "version": "0.0.1",
+  "author": "Yeoman",
+  "engines": {
+    "node": "0.8.19",
+    "npm": "1.2.10"
+  },
   "dependencies": {
     "express": "3.x",
     "request": "*"
