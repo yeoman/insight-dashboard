@@ -2,5 +2,5 @@ node_modules
 *.swp
 temp/
 .sass-cache/
-app/components/
 components/
+!dist/components/
