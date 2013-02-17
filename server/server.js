@@ -10,7 +10,11 @@ var refreshToken = process.env.YEOMAN_DASHBOARD_REFRESH_TOKEN;
 
 var analytics = new Analytics(profileId, clientId, clientSecret, refreshToken);
 
-app.use(express.static(__dirname + '/../dist'));
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(__dirname + '/../dist'));
+} else {
+  app.use(express.static(__dirname + '/../app'));
+}
 
 app.get( '/query', function( req, res ) {
   analytics.query({
