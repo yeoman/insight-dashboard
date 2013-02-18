@@ -1,12 +1,6 @@
-# 61.644123565003326,-33.166278505473024 (undefined, #undefined)
-# 22.1098517997698,66.41652244277937 (undefined, #undefined)
-# -52.15638931956204,46.68737573634092 (undefined, #undefined)
-# -68.29606729349749,-15.350804286488168 (undefined, #undefined)
-# -40.94087428240943,-56.77891169256369 (undefined, #undefined)
-# -12.3522406859176,-68.90153953314223 (undefined, #undefined)
 CACHE MANIFEST
 
-# Time: Sun Feb 17 2013 21:29:53 GMT+0100 (CET)
+# Time: Tue Feb 19 2013 00:13:57 GMT+0100 (CET)
 # This manifest was created by confess.js, http://github.com/jamesgpearce/confess
 #
 # Retrieved URL: http://localhost:3501/#/
@@ -30,9 +24,9 @@ CACHE:
 components/d3/d3.min.js
 http://localhost:3501/app/images/glyphicons-halflings-white.png
 http://localhost:3501/app/images/glyphicons-halflings.png
-scripts/6a01dee8.scripts.js
+scripts/ce6f77c2.scripts.js
 scripts/vendor/d10639ae.angular.js
-styles/442d7e31.main.css
+styles/68795011.main.css
 
 NETWORK:
 *
