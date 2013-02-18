@@ -54,6 +54,7 @@ insightDashboardApp.directive('pieChart', function() {
 
         g.append('text')
             .style( 'text-anchor', 'middle' )
+            // TODO: the slice should be done before the data is fed to the chart
             .text(function(d) { return d.data[0].slice( 9 ); }) // Strip '/install/'
             .attr('dy', '.35em')
             .attr('transform', function(d) {
