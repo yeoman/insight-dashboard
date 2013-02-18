@@ -56,7 +56,6 @@ insightDashboardApp.directive('barChart', function() {
           .text(function(d) { return d.data[0].slice( 9 ); }) // Strip '/install/'
           .attr('dy', '.35em')
           .attr('transform', function(d) {
-            console.log(arc.centroid( d ));
             d.innerRadius = radius + 50;
             d.outerRadius = radius;
             return 'translate(' + labelsArc.centroid( d ) + ')';
