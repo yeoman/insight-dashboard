@@ -19,9 +19,7 @@ insightDashboardApp.directive('barChart', function() {
       var height = +scope.height || 400;
       var radius = Math.min( width, height ) / 2;
 
-      // Only display the first 10 entries,
-      // and aggregate the rest together in the last entry
-      var data = scope.data.slice(0, 6);
+      var data = scope.data;
 
       var arc = d3.svg.arc()
           .outerRadius( radius - 10 )
@@ -41,25 +39,29 @@ insightDashboardApp.directive('barChart', function() {
           .append('g')
             .attr( 'transform', 'translate(' + width / 2 + ',' + (height / 2 + 25) + ')');
 
-      var g = svg.selectAll('.arc')
-          .data( pie( data ) )
-          .enter()
-          .append('g')
-            .attr( 'class', 'arc' );
+      // Run this everytime scope.data changes
+      scope.$watch( 'data', function( data ) {
 
-      g.append('path')
-          .attr( 'd', arc )
-          .style( 'fill', function(d) { return color( d.data[0] ); } );
+        var g = svg.selectAll('.arc')
+            .data( pie( data ) )
+            .enter()
+            .append('g')
+              .attr( 'class', 'arc' );
 
-      g.append('text')
-          .style( 'text-anchor', 'middle' )
-          .text(function(d) { return d.data[0].slice( 9 ); }) // Strip '/install/'
-          .attr('dy', '.35em')
-          .attr('transform', function(d) {
-            d.innerRadius = radius + 50;
-            d.outerRadius = radius;
-            return 'translate(' + labelsArc.centroid( d ) + ')';
-          });
+        g.append('path')
+            .attr( 'd', arc )
+            .style( 'fill', function(d) { return color( d.data[0] ); } );
+
+        g.append('text')
+            .style( 'text-anchor', 'middle' )
+            .text(function(d) { return d.data[0].slice( 9 ); }) // Strip '/install/'
+            .attr('dy', '.35em')
+            .attr('transform', function(d) {
+              d.innerRadius = radius + 50;
+              d.outerRadius = radius;
+              return 'translate(' + labelsArc.centroid( d ) + ')';
+            });
+      });
     }
   };
 });
