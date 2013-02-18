@@ -1,6 +1,6 @@
 'use strict';
 
-insightDashboardApp.directive('barChart', function() {
+insightDashboardApp.directive('pieChart', function() {
 
   // Constants
   var color = d3.scale.category20c();
@@ -33,7 +33,7 @@ insightDashboardApp.directive('barChart', function() {
 
       var svg = d3.select( element[0] )
           .append('svg')
-            .attr( 'class', 'bar-chart')
+            .attr( 'class', 'pie-chart')
             .attr( 'width', width )
             .attr( 'height', height + 50 )
           .append('g')
