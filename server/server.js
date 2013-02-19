@@ -1,4 +1,5 @@
 var express   = require('express');
+var moment    = require('moment');
 var Analytics = require('./util/analytics.js');
 
 var app = express();
@@ -17,22 +18,44 @@ if ( process.env.NODE_ENV === 'production' ) {
   app.use( '/styles', express.static( __dirname + '/../temp/styles' ));
 }
 
+// Connecting to redis
+if ( process.env.REDISTOGO_URL ) {
+  // TODO: redistogo heroku connection
+} else {
+  var redis = require('redis').createClient();
+}
+
 app.get( '/installs', function( req, res ) {
-  analytics.query({
 
-    dimensions   : 'ga:pagePath',
-    metrics      : 'ga:pageviews',
-    sort         : '-ga:pageviews',
-    filters      : 'ga:pagePath=@/install/',
-    'max-results': '100'
+  // Check cache
+  redis.get( 'installs', function( err, reply ) {
+    if ( err || reply === null ) {
+      // cache miss, perform query
+      analytics.query({
 
-  }, function( responseJSON ) {
+        dimensions   : 'ga:pagePath',
+        metrics      : 'ga:pageviews',
+        sort         : '-ga:pageviews',
+        filters      : 'ga:pagePath=@/install/',
+        'max-results': '100'
 
-    var response = JSON.parse( responseJSON );
-    res.json({
-      total: response.totalsForAllResults['ga:pageviews'],
-      rows: response.rows
-    });
+      }, function( responseJSON ) {
+        var response = JSON.parse( responseJSON );
+        var result = {
+          'total': response.totalsForAllResults['ga:pageviews'],
+          'rows': response.rows
+        };
+
+        // Save to cache and set 'expireat' to end of current day
+        redis.set( 'installs', JSON.stringify( result ) );
+        redis.expire( 'installs', moment().endOf('day').unix() );
+
+        res.json( result );
+      });
+
+    } else {
+      res.json( JSON.parse( reply ) );
+    }
   });
 });
 

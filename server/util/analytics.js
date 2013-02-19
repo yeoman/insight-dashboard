@@ -29,7 +29,7 @@ Analytics.prototype.authorize = function( callback ) {
     grant_type   : 'refresh_token'
   };
 
-  // TODO: cache authToken
+  // TODO: cache authToken?
   request.post( this.authUrl, { form: data, }, function( err, response, body ) {
     var result = JSON.parse( body );
 
