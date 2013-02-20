@@ -5,9 +5,12 @@
   "dependencies": {
     "express": "3.x",
     "request": "*",
+
     "redis": "*",
     "redis-url": "0.1.0",
-    "moment": "*"
+
+    "moment": "*",
+    "when": "*"
   },
   "devDependencies": {}
 }
