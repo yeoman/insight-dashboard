@@ -19,10 +19,12 @@ if ( process.env.NODE_ENV === 'production' ) {
 }
 
 // Connecting to redis
+var redis;
 if ( process.env.REDISTOGO_URL ) {
-  // TODO: redistogo heroku connection
+  // redistogo heroku connection
+  redis = require('redis-url').connect( process.env.REDISTOGO_URL );
 } else {
-  var redis = require('redis').createClient();
+  redis = require('redis').createClient();
 }
 
 app.get( '/installs', function( req, res ) {
