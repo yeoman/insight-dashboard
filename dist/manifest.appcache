@@ -1,6 +1,6 @@
 CACHE MANIFEST
 
-# Time: Tue Feb 19 2013 00:13:57 GMT+0100 (CET)
+# Time: Mon Feb 25 2013 22:55:44 GMT+0100 (CET)
 # This manifest was created by confess.js, http://github.com/jamesgpearce/confess
 #
 # Retrieved URL: http://localhost:3501/#/
@@ -24,9 +24,9 @@ CACHE:
 components/d3/d3.min.js
 http://localhost:3501/app/images/glyphicons-halflings-white.png
 http://localhost:3501/app/images/glyphicons-halflings.png
-scripts/ce6f77c2.scripts.js
+scripts/f58f6273.scripts.js
 scripts/vendor/d10639ae.angular.js
-styles/68795011.main.css
+styles/4a41aab0.main.css
 
 NETWORK:
 *

@@ -4,3 +4,4 @@ temp/
 .sass-cache/
 components/
 !dist/components/
+dump.rdb

@@ -1,5 +1,6 @@
 @import "compass_twitter_bootstrap";
 @import "pie_chart";
+@import "table";
 
 .insight {
   @include clearfix;
@@ -8,11 +9,7 @@
     float: left;
   }
 
-  .table-wrapper {
-    float: left;
-    width: 350px;
-    height: 400px;
-    margin-left: 50px;
-    overflow-y: scroll;
+  .hero-unit {
+    padding: 50px;
   }
 }
