@@ -1,0 +1,34 @@
+.table-wrapper {
+  float: left;
+  width: 370px;
+  height: 400px;
+  margin-left: 40px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+::-webkit-scrollbar {
+  width:10px;
+  height:10px;
+}
+
+::-webkit-scrollbar-button:vertical:increment {
+  background-color:transparent;
+}
+
+::-webkit-scrollbar-track:enabled {
+  background-color:rgba(113,112,107,0.1);
+  -webkit-border-radius:5px;
+}
+
+::-webkit-scrollbar-thumb:vertical {
+  height:50px;
+  background-color:rgba(0,0,0,0.2);
+  -webkit-border-radius:5px;
+}
+
+::-webkit-scrollbar-thumb:horizontal {
+  width:50px;
+  background-color:rgba(0,0,0,0.2);
+  -webkit-border-radius:5px;
+}
