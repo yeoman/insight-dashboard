@@ -11,5 +11,6 @@ if ( process.env.NODE_ENV === 'production' ) {
 }
 
 app.get( '/installs', function( req, res ) { cache.try( req, res, query.installs ); } );
+app.get( '/visitors', function( req, res ) { cache.try( req, res, query.visitors ); } );
 
 app.listen( process.env.PORT || 3000 );
