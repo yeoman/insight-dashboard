@@ -1,9 +1,9 @@
 {
   "author": "Yeoman",
   "name": "insight-dashboard",
-  "version": "0.0.1",
+  "version": "0.0.0",
   "dependencies": {
-    "d3": "*",
-    "crossfilter": "https://github.com/square/crossfilter.git"
+    "d3": "~3.0.6",
+    "crossfilter": "~1.1.0"
   }
 }
