@@ -2,6 +2,7 @@
 
 insightDashboardApp.controller('MainCtrl', ['$scope', '$http', function($scope, $http) {
   $scope.data = [];
+  $scope.slicedData = [];
 
   $http({
     method: 'GET',
@@ -14,5 +15,8 @@ insightDashboardApp.controller('MainCtrl', ['$scope', '$http', function($scope, 
     });
 
     $scope.data = response.data;
+    // Only display the first 5-10 entries,
+    // TODO: aggregate the rest together in the last entry
+    $scope.slicedData = response.data.slice( 0, 6 );
   });
 }]);
