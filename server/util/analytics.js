@@ -52,8 +52,9 @@ Analytics.prototype.authorize = function( callback ) {
  * Query method
  */
 Analytics.prototype.query = function( params, callback ) {
-  params['start-date'] = '2005-01-01';
-  params['end-date']   = formatDate(new Date());
+  params['start-date'] = params['start-date'] || '2005-01-01';
+  params['end-date']   = params['end-date'] || formatDate( new Date() );
+  params['max-results'] = params['max-results'] || '10000';
 
   this.authorize(function() {
     var header = { Authorization: util.format( 'OAuth %s', this.authToken ) };

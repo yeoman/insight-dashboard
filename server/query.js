@@ -20,7 +20,9 @@ exports.installs = function() {
 
 exports.visitors = function() {
   return deferQuery({
-    dimensions: 'ga:date,ga:dayOfWeek,ga:visitorType',
+    // TODO: include visitorType to make a stacked bar chart
+    // dimensions: 'ga:date,ga:dayOfWeek,ga:visitorType',
+    dimensions: 'ga:date,ga:dayOfWeek',
     metrics   : 'ga:visitors'
   });
 };
@@ -33,6 +35,9 @@ exports.visitors = function() {
  */
 var deferQuery = function( queryParams, processResponse ) {
   var deferred = when.defer();
+
+  // Start of Yeoman
+  queryParams['start-date'] = '2012-06-06';
 
   analytics.query( queryParams, function( responseJSON ) {
     var response = JSON.parse( responseJSON );
