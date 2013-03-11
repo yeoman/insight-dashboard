@@ -9,8 +9,8 @@ Install all dependencies:
 This app uses redis as a caching mechanism. Start the redis server:
   - `redis-server`
 
-Build and start the node server:
-  - `yeoman build`
+Start yeoman and node server:
+  - `yeoman server` (ignore the browser window that opens, correct port is 3000)
   - `node server/server.js`
 
 Presto!
