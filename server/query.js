@@ -10,17 +10,16 @@ var analytics = new Analytics( profileId, clientId, clientSecret, refreshToken )
 
 exports.installs = function() {
   return deferQuery({
-    dimensions   : 'ga:pagePath',
+    dimensions   : 'ga:pagePath,ga:date',
     metrics      : 'ga:pageviews',
-    sort         : '-ga:pageviews',
-    filters      : 'ga:pagePath=@/install/',
-    'max-results': '100'
+    sort         : '-ga:date, -ga:pageviews',
+    filters      : 'ga:pagePath=@/install/'
   });
 };
 
 exports.visitors = function() {
   return deferQuery({
-    // TODO: include visitorType to make a stacked bar chart
+    // TODO: include visitorType to make a stacked bar chart?
     // dimensions: 'ga:date,ga:dayOfWeek,ga:visitorType',
     dimensions: 'ga:date,ga:dayOfWeek',
     metrics   : 'ga:visitors'
