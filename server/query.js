@@ -9,25 +9,39 @@ var refreshToken = process.env.YEOMAN_DASHBOARD_REFRESH_TOKEN;
 var analytics = new Analytics( profileId, clientId, clientSecret, refreshToken );
 
 exports.installs = function() {
-    var deferred = when.defer();
+  return deferQuery({
+    dimensions   : 'ga:pagePath,ga:date',
+    metrics      : 'ga:pageviews',
+    sort         : '-ga:date, -ga:pageviews',
+    filters      : 'ga:pagePath=@/install/'
+  });
+};
 
-    analytics.query({
+exports.visitors = function() {
+  return deferQuery({
+    // TODO: include visitorType to make a stacked bar chart?
+    // dimensions: 'ga:date,ga:dayOfWeek,ga:visitorType',
+    dimensions: 'ga:date,ga:dayOfWeek',
+    metrics   : 'ga:visitors'
+  });
+};
 
-      dimensions   : 'ga:pagePath',
-      metrics      : 'ga:pageviews',
-      sort         : '-ga:pageviews',
-      filters      : 'ga:pagePath=@/install/',
-      'max-results': '100'
+/**
+ * Generates a deferred analytics query.
+ *
+ * @method deferQuery
+ * @param {Object} queryParams Parameters to be passed to analytics.query method
+ */
+var deferQuery = function( queryParams, processResponse ) {
+  var deferred = when.defer();
 
-    }, function( responseJSON ) {
-      var response = JSON.parse( responseJSON );
-      var result = {
-        'total': response.totalsForAllResults['ga:pageviews'],
-        'rows': response.rows
-      };
+  // Start of Yeoman
+  queryParams['start-date'] = '2012-06-06';
 
-      deferred.resolve( result );
-    });
+  analytics.query( queryParams, function( responseJSON ) {
+    var response = JSON.parse( responseJSON );
+    deferred.resolve( response.rows );
+  });
 
-    return deferred.promise;
+  return deferred.promise;
 };

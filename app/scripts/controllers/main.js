@@ -1,23 +1,25 @@
 'use strict';
 
-insightDashboardApp.controller('MainCtrl', ['$scope', '$http', function($scope, $http) {
-  $scope.data = [];
-  $scope.slicedData = [];
+insightDashboardApp.controller('MainCtrl', ['$scope', '$http', 'installs', 'visitors',
+function( $scope, $http, installs, visitors ) {
 
-  $http({
-    method: 'GET',
-    url: '/installs'
-  })
-  .then( function( response ) {
-    // Slice off the '/install/' part of the names
-    angular.forEach( response.data.rows, function( value ) {
-      value[0] = value[0].slice( 9 );
-    });
+  var dateFormat = d3.time.format('%Y%m%d');
 
-    $scope.data = response.data.rows;
-    // Only display the first 5-10 entries,
-    // TODO: aggregate the rest together in the last entry
-    $scope.slicedData = response.data.rows.slice( 0, 6 );
-  });
+  $scope.installs = installs.get;
+  $scope.visitors = visitors.get;
+
+  // Filters the metrics datum by date interval using crossfilter
+  $scope.filterDateStart = '20130306';
+  $scope.filterDateEnd = '20130310';
+  $scope.filter = function() {
+    var dateStart = dateFormat.parse( $scope.filterDateStart );
+    // TODO: dateStart is inclusive, but dateEnd not. Should it be?
+    var dateEnd = dateFormat.parse( $scope.filterDateEnd );
+
+    installs.filter(dateStart, dateEnd);
+    visitors.filter(dateStart, dateEnd);
+
+    return false;
+  };
 
 }]);

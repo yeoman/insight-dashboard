@@ -1,6 +1,12 @@
+<div class="clearfix">
+  <input type="text" ng-model="filterDateStart" placeholder="GA style (yyyymmdd)" />
+  <input type="text" ng-model="filterDateEnd" placeholder="GA style (yyyymmdd)" />
+</div>
+<p class="btn" ng-click="filter()">Filter</a>
+
 <h3>Bower Installs</h3>
 <div class="insight hero-unit">
-  <pie-chart class="chart" data="slicedData" height=300 width=400></pie-chart>
+  <pie-chart class="chart" data="installs(true)" height=300 width=400></pie-chart>
   <div class="table-wrapper">
     <table class="table table-hover">
       <thead>
@@ -11,10 +17,30 @@
         </tr>
       </thead>
       <tbody>
-      <tr ng-repeat="row in data">
+      <tr ng-repeat="row in installs()">
         <td>{{ $index + 1 }}</td>
-        <td>{{ row[0] }}</td>
-        <td>{{ row[1] }}</td>
+        <td>{{ row.key }}</td>
+        <td>{{ row.value }}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<h3>Visitors by Day</h3>
+<div class="insight hero-unit">
+  <div class="table-wrapper">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Visitors</th>
+        </tr>
+      </thead>
+      <tbody>
+      <tr ng-repeat="row in visitors()">
+        <td>{{ row[0] | prettyDate }}</td>
+        <td>{{ row[2] }}</td>
       </tr>
       </tbody>
     </table>
