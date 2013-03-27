@@ -22,6 +22,6 @@ Presto!
 
 ### Contributing
 
-Any help is greatly welcome! If you're interested in contributing, please contact @vitorbal on twitter or freenode and I will
+Any help is greatly welcome! If you're interested in contributing, please contact [@vitorbal](http://twitter.com/vitorbal) on twitter or freenode and I will
 help you get started.
 Also, I try to keep a running list of TODOs [here](https://github.com/yeoman/insight-dashboard/issues?milestone=1&state=open).
