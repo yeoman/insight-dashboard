@@ -29,7 +29,7 @@ insightDashboardApp.directive('pieChart', function() {
 
       var pie = d3.layout.pie()
           .sort( null )
-          .value( function(d) { return d[1]; } );
+          .value( function(d) { return d.value; } );
 
       var svg = d3.select( element[0] )
           .append('svg')
@@ -42,25 +42,37 @@ insightDashboardApp.directive('pieChart', function() {
       // Run this everytime scope.data changes
       scope.$watch( 'data', function( data ) {
 
-        var g = svg.selectAll('.arc')
+        var path = svg.selectAll('path')
             .data( pie( data ) )
-            .enter()
-            .append('g')
-              .attr( 'class', 'arc' );
+            .attr( 'd', arc );
 
-        g.append('path')
+        var text = svg.selectAll('text')
+            .data( pie( data ) )
+            .text( function(d) { return d.data.key; } )
+            .attr('transform', function(d) {
+              d.innerRadius = radius + 50;
+              d.outerRadius = radius;
+              return 'translate(' + labelsArc.centroid( d ) + ')';
+            });
+
+        path.enter()
+            .append('path')
+            .attr( 'fill', function(d) { return color( d.data.key ); } )
             .attr( 'd', arc )
-            .style( 'fill', function(d) { return color( d.data[0] ); } );
 
-        g.append('text')
+        path.enter()
+            .append('text')
             .style( 'text-anchor', 'middle' )
-            .text(function(d) { return d.data[0]; })
+            .text( function(d) { return d.data.key; } )
             .attr('dy', '.35em')
             .attr('transform', function(d) {
               d.innerRadius = radius + 50;
               d.outerRadius = radius;
               return 'translate(' + labelsArc.centroid( d ) + ')';
             });
+
+        path.exit().remove();
+
       });
     }
   };
