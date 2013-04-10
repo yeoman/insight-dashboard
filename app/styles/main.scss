@@ -7,9 +7,11 @@
 
   .chart svg {
     float: left;
+    width: auto;
+    height: auto;
   }
 
-  .hero-unit {
-    padding: 50px;
+  &.hero-unit {
+    padding: 40px 40px 0 40px;
   }
 }
