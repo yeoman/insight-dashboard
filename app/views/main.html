@@ -4,6 +4,8 @@
 </div>
 <p class="btn" ng-click="filter()">Filter</a>
 
+<h2>Total number of downloads: {{ downloads() }}</h2>
+
 <h3>Bower Installs</h3>
 <div class="insight hero-unit">
   <pie-chart class="chart" data="installs(true)" width=450 height=450></pie-chart>

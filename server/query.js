@@ -26,6 +26,18 @@ exports.visitors = function() {
   });
 };
 
+exports.downloads = function() {
+  return deferQuery({
+    dimensions: 'ga:pagePath, ga:date',
+    metrics   : 'ga:pageviews',
+    filters   : 'ga:pagePath=@/downloaded'
+  });
+};
+
+exports.generators = function() {
+
+};
+
 /**
  * Generates a deferred analytics query.
  *

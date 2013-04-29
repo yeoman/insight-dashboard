@@ -1,12 +1,13 @@
 'use strict';
 
-insightDashboardApp.controller('MainCtrl', ['$scope', '$http', 'installs', 'visitors',
-function( $scope, $http, installs, visitors ) {
+insightDashboardApp.controller('MainCtrl', ['$scope', '$http', 'installs', 'visitors', 'downloads',
+function( $scope, $http, installs, visitors, downloads ) {
 
   var dateFormat = d3.time.format('%Y%m%d');
 
   $scope.installs = installs.get;
   $scope.visitors = visitors.get;
+  $scope.downloads = downloads.get;
 
   // Filters the metrics datum by date interval using crossfilter
   $scope.filterDateStart = '20130306';
@@ -18,6 +19,7 @@ function( $scope, $http, installs, visitors ) {
 
     installs.filter(dateStart, dateEnd);
     visitors.filter(dateStart, dateEnd);
+    downloads.filter(dateStart, dateEnd);
 
     return false;
   };
