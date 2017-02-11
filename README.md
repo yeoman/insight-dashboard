@@ -1,5 +1,7 @@
 ## Yeoman Insights Dashboard
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/yeoman/insight-dashboard.svg)](https://greenkeeper.io/)
+
 ### Running locally:
 
 Install all dependencies:
